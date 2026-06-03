@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>I'm Sorry 💙</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0a0015;
+      font-family: 'Lato', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* CUSTOM CURSOR */
+    .cursor {
+      width: 20px; height: 20px;
+      background: #ff6eb4;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s;
+      box-shadow: 0 0 15px #ff6eb4;
+    }
+
+    /* FLOATING HEARTS BACKGROUND */
+    .heart-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .heart-bg span {
+      position: absolute;
+      bottom: -50px;
+      font-size: 20px;
+      animation: floatup linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes floatup {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* PAGE SECTIONS */
+    .page {
+      display: none;
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 40px 30px;
+    }
+
+    .page.active { display: flex; }
+
+    /* PAGE 1 — OPENING */
+    .page1-emoji {
+      font-size: 90px;
+      animation: bounce 1s ease infinite alternate;
+      margin-bottom: 20px;
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-20px); }
+    }
+
+    .page1 h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 52px;
+      color: #ff6eb4;
+      text-shadow: 0 0 30px #ff6eb488;
+      animation: glow 2s ease infinite alternate;
+      margin-bottom: 16px;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 20px #ff6eb4; }
+      to   { text-shadow: 0 0 50px #ff6eb4, 0 0 80px #ff6eb455; }
+    }
+
+    .page1 p {
+      font-size: 20px;
+      color: #ccc;
+      margin-bottom: 40px;
+      font-style: italic;
+    }
+
+    /* PAGE 2 — SORRY MESSAGE */
+    .sorry-card {
+      background: rgba(255, 110, 180, 0.07);
+      border: 1px solid #ff6eb444;
+      border-radius: 24px;
+      padding: 50px 40px;
+      max-width: 600px;
+      animation: cardfadein 1s ease forwards;
+    }
+
+    @keyframes cardfadein {
+      from { opacity: 0; transform: scale(0.8); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .sorry-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 40px;
+      color: #ff6eb4;
+      margin-bottom: 24px;
+    }
+
+    .sorry-card p {
+      font-size: 19px;
+      color: #ddd;
+      line-height: 2;
+      margin-bottom: 16px;
+    }
+
+    .sorry-card p span {
+      color: #ff6eb4;
+      font-weight: 600;
+    }
+
+    /* PAGE 3 — PROMISES */
+    .promises h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      color: #ff6eb4;
+      margin-bottom: 40px;
+    }
+
+    .promise-list {
+      list-style: none;
+      max-width: 500px;
+      text-align: left;
+    }
+
+    .promise-list li {
+      font-size: 18px;
+      color: #eee;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      background: rgba(255,110,180,0.07);
+      border-left: 3px solid #ff6eb4;
+      border-radius: 0 12px 12px 0;
+      opacity: 0;
+      animation: slideright 0.5s ease forwards;
+    }
+
+    .promise-list li:nth-child(1) { animation-delay: 0.2s; }
+    .promise-list li:nth-child(2) { animation-delay: 0.4s; }
+    .promise-list li:nth-child(3) { animation-delay: 0.6s; }
+    .promise-list li:nth-child(4) { animation-delay: 0.8s; }
+    .promise-list li:nth-child(5) { animation-delay: 1.0s; }
+
+    @keyframes slideright {
+      from { opacity: 0; transform: translateX(-40px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .promise-list li::before {
+      content: '🤞 ';
+      font-size: 20px;
+    }
+
+    /* PAGE 4 — FINAL */
+    .final-emoji {
+      font-size: 80px;
+      margin-bottom: 20px;
+      animation: spin 3s linear infinite;
+    }
+
+    @keyframes spin {
+      0%   { transform: rotate(-10deg) scale(1); }
+      50%  { transform: rotate(10deg) scale(1.1); }
+      100% { transform: rotate(-10deg) scale(1); }
+    }
+
+    .final h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 44px;
+      color: #ff6eb4;
+      margin-bottom: 20px;
+      animation: glow 2s ease infinite alternate;
+    }
+
+    .final p {
+      font-size: 20px;
+      color: #ccc;
+      max-width: 500px;
+      line-height: 1.9;
+      margin-bottom: 30px;
+      font-style: italic;
+    }
+
+    /* FORGIVE BUTTON */
+    .forgive-btn {
+      padding: 18px 50px;
+      background: linear-gradient(135deg, #ff6eb4, #c850c0);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 20px;
+      font-family: 'Playfair Display', serif;
+      cursor: pointer;
+      box-shadow: 0 0 30px #ff6eb466;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+
+    .forgive-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 60px #ff6eb4aa;
+    }
+
+    /* PAGE 5 — FORGIVEN */
+    .forgiven {
+      animation: popin 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes popin {
+      0%   { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .forgiven-emoji { font-size: 100px; margin-bottom: 20px; }
+
+    .forgiven h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 50px;
+      color: #ff6eb4;
+      animation: glow 1.5s ease infinite alternate;
+      margin-bottom: 16px;
+    }
+
+    .forgiven p {
+      font-size: 22px;
+      color: #eee;
+      font-style: italic;
+    }
+
+    /* NEXT BUTTON */
+    .next-btn {
+      margin-top: 36px;
+      padding: 14px 40px;
+      background: transparent;
+      color: #ff6eb4;
+      border: 1px solid #ff6eb4;
+      border-radius: 50px;
+      font-size: 17px;
+      font-family: 'Lato', sans-serif;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .next-btn:hover {
+      background: #ff6eb422;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #ff6eb444;
+    }
+
+    /* PROGRESS DOTS */
+    .dots {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #ffffff22;
+      transition: all 0.3s;
+    }
+
+    .dot.active {
+      background: #ff6eb4;
+      box-shadow: 0 0 10px #ff6eb4;
+      transform: scale(1.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor" id="cursor"></div>
+
+  <!-- FLOATING HEARTS -->
+  <div class="heart-bg" id="heartBg"></div>
+
+  <!-- PROGRESS DOTS -->
+  <div class="dots">
+    <div class="dot active" id="d1"></div>
+    <div class="dot" id="d2"></div>
+    <div class="dot" id="d3"></div>
+    <div class="dot" id="d4"></div>
+  </div>
+
+  <!-- PAGE 1 — OPENING -->
+  <div class="page page1 active" id="page1">
+    <div class="page1-emoji">💌</div>
+    <h1>Hey, Best Friend...</h1>
+    <p>I made something just for you. Please keep reading.</p>
+    <button class="next-btn" onclick="goTo(2)">Open it →</button>
+  </div>
+
+  <!-- PAGE 2 — SORRY -->
+  <div class="page" id="page2">
+    <div class="sorry-card">
+      <h2>I'm really sorry. 😔</h2>
+      <p>I know I <span>hurt you</span>, and that's the last thing I ever wanted to do.</p>
+      <p>You are the most <span>genuine, caring</span> person in my life and I took that for granted.</p>
+      <p>What I did was <span>wrong</span> — no excuses. You deserved better from me and I know it.</p>
+      <p>This isn't just words. I mean every single letter of this. <span>From the bottom of my heart.</span></p>
+      <button class="next-btn" onclick="goTo(3)" style="margin-top:20px">See my promises →</button>
+    </div>
+  </div>
+
+  <!-- PAGE 3 — PROMISES -->
+  <div class="page" id="page3">
+    <h2 class="promises" style="font-family:'Playfair Display',serif; font-size:36px; color:#ff6eb4; margin-bottom:30px;">
+      I promise you this 🤍
+    </h2>
+    <ul class="promise-list">
+      <li>I will never repeat what hurt you. Never.</li>
+      <li>I will always listen to you first before reacting.</li>
+      <li>I will be there for you — good days and bad days.</li>
+      <li>Your feelings will always matter more than my ego.</li>
+      <li>I will be the best friend you always deserved.</li>
+    </ul>
+    <button class="next-btn" onclick="goTo(4)" style="margin-top:30px">One last thing →</button>
+  </div>
+
+  <!-- PAGE 4 — FINAL MESSAGE -->
+  <div class="page final" id="page4">
+    <div class="final-emoji">🫂</div>
+    <h2>You mean everything.</h2>
+    <p>"Losing you even for a second made me realise how empty life feels without my best friend in it."</p>
+    <p style="color:#ff6eb4; font-size:18px; font-style:normal;">So please... forgive me? 🥺</p>
+    <button class="forgive-btn" onclick="goTo(5)">
+      Yes, I forgive you 💗
+    </button>
+  </div>
+
+  <!-- PAGE 5 — FORGIVEN -->
+  <div class="page" id="page5">
+    <div class="forgiven">
+      <div class="forgiven-emoji">🥳</div>
+      <h2>YAYYYY!! 💗</h2>
+      <p>"Best friends forever — nothing can change that."</p>
+      <p style="color:#ff6eb4; margin-top:16px; font-size:18px;">Thank you for giving me another chance. I won't waste it. Ever. 🤍</p>
+    </div>
+  </div>
+
+  <script>
+    // CUSTOM CURSOR
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX - 10 + 'px';
+      cursor.style.top  = e.clientY - 10 + 'px';
+    });
+
+    // FLOATING HEARTS
+    const heartBg = document.getElementById('heartBg');
+    const emojis = ['💗','💕','🌸','✨','💖','🫧','💞','🌷'];
+    setInterval(() => {
+      const span = document.createElement('span');
+      span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      span.style.left = Math.random() * 100 + 'vw';
+      span.style.fontSize = (14 + Math.random() * 20) + 'px';
+      span.style.animationDuration = (5 + Math.random() * 6) + 's';
+      span.style.animationDelay = '0s';
+      heartBg.appendChild(span);
+      setTimeout(() => span.remove(), 11000);
+    }, 400);
+
+    // PAGE NAVIGATION
+    function goTo(n) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+      document.getElementById('page' + n).classList.add('active');
+      if(n <= 4) document.getElementById('d' + n).classList.add('active');
+
+      // BURST HEARTS on forgiven page
+      if(n === 5) {
+        for(let i = 0; i < 30; i++) {
+          setTimeout(() => {
+            const span = document.createElement('span');
+            span.textContent = '💗';
+            span.style.cssText = `position:fixed; left:${Math.random()*100}vw; top:${Math.random()*100}vh; font-size:${20+Math.random()*30}px; pointer-events:none; z-index:999; animation: floatup 2s ease forwards;`;
+            document.body.appendChild(span);
+            setTimeout(() => span.remove(), 2000);
+          }, i * 80);
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
